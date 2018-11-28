@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>孩子生成器</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<style>
+			#app>p{
+				text-align: center;
+				font-size: 32px;
+			}
+			#app>button{
+				width: 50px;
+				height: 30px;
+				display:block;
+				margin: 30px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<p>孩子生成器</p>
+			<table  border="1" bordercolor="#a0c6e5" style="border-collapse:collapse;" cellspacing="" cellpadding="" align="center">
+				<tr height="50">
+					<th width="200">身高</th>
+					<th width="400">{{cm}}</th>
+				</tr>
+				<tr height="50">
+					<th width="200">体重</th>
+					<th width="400">{{kg}}</th>
+				</tr>
+				<tr height="50">
+					<th width="200">长相</th>
+					<th width="400">{{face}}</th>
+				</tr>
+				<tr height="50">
+					<th width="200">智商</th>
+					<th width="400">{{head}}</th>
+				</tr>
+				<tr height="50">
+					<th width="200">爱好</th>
+					<th width="400">{{hobbit}}</th>
+				</tr>
+				<tr height="50">
+					<th width="200">性别</th>
+					<th width="400">{{sex}}</th>
+				</tr>
+			</table>
+			<button v-on:click="get">生成</button>
+		</div>
+	</body>
+	<script>
+		var face_a = ['美','美','丑','丑','丑','相貌平平','相貌平平','相貌平平','相貌平平','貌若天仙','丑出天际']
+		var hobbit_a = ['吃','打游戏','看书','嫖娼','赌博','炒股','看星星','小动物','打篮球']
+		var sex_a = ['男','男','男','男','男','男','男','男','女','女','女','女','女','女','女','女','不男不女','男','女','男','女','男','女','男','女',]
+		var app = new Vue({
+			el:'#app',
+			data:{
+				cm:'',
+				kg:'',
+				face:'',
+				head:'',
+				hobbit:'',
+				sex:''
+			},
+			methods:{
+				get:function(){
+					this.cm = GetRandomNum(6, 12)+' cm';
+					this.kg = GetRandomNum(5, 10)+' kg';
+					this.face = face_a[GetRandomNum(0, face_a.length-1)];
+					var c = GetRandomNum(0, 20);
+					if (c == 0) {
+						this.head = '您的孩子是个傻子'
+					}else if(c == 20){
+						this.head = '您的孩子聪明绝顶，智商爆表'
+					}else{
+						this.head = GetRandomNum(95, 105);
+					}
+					this.hobbit = hobbit_a[GetRandomNum(0, hobbit_a.length-1)]
+					this.sex = sex_a[GetRandomNum(0, sex_a.length-1)]
+				}
+			}
+		})
+		function GetRandomNum(Min, Max) {
+		    var Range = Max - Min;
+		    var Rand = Math.random();
+		    return(Min + Math.round(Rand * Range));
+		}
+	</script>
+</html>
